@@ -60,7 +60,7 @@ console.log('Pattern match after last index is: ', globalRegEx.test(myEmail));
 // 7. You are given an assignmentDate as a string in the format "month/day/year"
 // i.e. '1/21/2019' - but this could be any date.
 // Convert this string to a Date
-const assignmentDate = '1/21/2019';
+const assignmentDate = '1/02/2019';
 const assignmentDateObj = new Date(assignmentDate);
 console.log('\nAssignment date is: ', assignmentDateObj);
 
@@ -99,8 +99,9 @@ dueDateYear = dueDateObj.getFullYear();
 // 10. log this value using console.log
 // Print due date log message for every month in the months array
 console.log('\nDue dates for all months of the year are: ');
-let monthIndex = 0 // month index
 
+// SOLUTION 1 - TO PRINT TWO DIGIT MONTH, DATE WITHOUT USING String.padStart() METHOD
+let monthIndex = 0 // month index
 for (let month of months) {
   // Most of the Date objects return single digit index for month (ex: 1 for February month)
   // Since we need two digit month displayed in the output (Ex: YYYY-MM-DD),
@@ -109,7 +110,18 @@ for (let month of months) {
   const yyyymmdd = dueDateObj.toISOString().substring(0, 10);
   
   console.log(`<time datetime="${yyyymmdd}">${month} ${dueDateValue}, ${dueDateYear}</time>`);
-  
+
   // Increase the month index to print log message for the next month
   monthIndex++;
+}
+
+// SOLUTION 2 - TO PRINT TWO DIGIT MONTH, DATE USING String.padStart() METHOD
+let dueDateWithPadding = dueDateValue.toString().padStart(2, 0);
+let monthIndexForSolution2 = 1 // month index
+for (let month of months) {
+  let monthIndexWithPadding = monthIndexForSolution2.toString().padStart(2, 0);
+  console.log(`<time datetime="${dueDateYear}-${monthIndexWithPadding}-${dueDateWithPadding}">${month} ${dueDateWithPadding}, ${dueDateYear}</time>`);
+
+  // Increase the month index to print log message for the next month
+  monthIndexForSolution2++;
 }

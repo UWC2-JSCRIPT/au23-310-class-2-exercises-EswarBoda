@@ -28,12 +28,11 @@ console.log(`${koteshObject.firstName} favorite food is: `, koteshObject['favori
 const ticTacToeArray = [['-', 'O', '-'], ['-', 'X', 'O'], ['X', '-', 'X']];
 
 // 4. After the array is created, 'O' claims the top right square.
-// Update that value.
-ticTacToeArray[0][1] = '-';
+// Update the top right square value.
 ticTacToeArray[0][2] = 'O';
 
 // 5. Log the grid to the console.
-console.log('\nTic Tac Toe Array first row: ', ticTacToeArray[0]);
+console.log('Tic Tac Toe Array first row: ', ticTacToeArray[0]);
 console.log('Tic Tac Toe Array second row: ', ticTacToeArray[1]);
 console.log('Tic Tac Toe Array thrid row: ', ticTacToeArray[2]);
 
@@ -49,20 +48,14 @@ const regExToMatchEmail = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
 // Regular RegExp
 const regex = new RegExp(regExToMatchEmail);
 const result  = regex.test(myEmail);
-console.log('\nResult of regex pattern match to email is: ', result);
-
-// OPTIONAL - Global RegExp
-const globalRegEx = new RegExp(regExToMatchEmail, 'g');
-console.log('\nGlobal regex pattern match to email is: ', globalRegEx.test(myEmail));
-console.log('Last Index of Global regex pattern match to email is: ', globalRegEx.lastIndex);
-console.log('Pattern match after last index is: ', globalRegEx.test(myEmail));
+console.log('Result of regex pattern match to email is: ', result);
 
 // 7. You are given an assignmentDate as a string in the format "month/day/year"
 // i.e. '1/21/2019' - but this could be any date.
 // Convert this string to a Date
-const assignmentDate = '1/02/2019';
+const assignmentDate = '1/21/2019';
 const assignmentDateObj = new Date(assignmentDate);
-console.log('\nAssignment date is: ', assignmentDateObj);
+console.log('Assignment date is: ', assignmentDateObj);
 
 // Get assignment date value from the assignment date object
 const assignmentDateValue = assignmentDateObj.getDate();
@@ -93,35 +86,26 @@ const months = [
   'December'
 ];
 
-// Get year for log message
-dueDateYear = dueDateObj.getFullYear();
+// Get Month Index & Year from due date for log message
+const dueDateYear = dueDateObj.getFullYear();
+
+// Calculate padded due date & month with leading zero for log message
+const dueDateWithPadding = dueDateValue.toString().padStart(2, 0);
+
+// Calculate due date month
+const dueMonthFromDueDate = dueDateObj.getMonth();
+// increase month index by 1, since month index start at 0
+const dueMonthWithPadding = (dueMonthFromDueDate + 1).toString().padStart(2, 0);
 
 // 10. log this value using console.log
-// Print due date log message for every month in the months array
-console.log('\nDue dates for all months of the year are: ');
 
 // SOLUTION 1 - TO PRINT TWO DIGIT MONTH, DATE WITHOUT USING String.padStart() METHOD
-let monthIndex = 0 // month index
-for (let month of months) {
-  // Most of the Date objects return single digit index for month (ex: 1 for February month)
-  // Since we need two digit month displayed in the output (Ex: YYYY-MM-DD),
-  // Use toISOString() method, and then use substring() to extract first 10 characters of the date string
-  dueDateObj.setMonth(monthIndex);
-  const yyyymmdd = dueDateObj.toISOString().substring(0, 10);
+// Most of the Date objects return single digit index for month (ex: 1 for February month)
+// Since we need two digit month displayed in the output (Ex: YYYY-MM-DD),
+// Use toISOString() method, and then use substring() to extract first 10 characters of the date string
+const yyyymmdd = dueDateObj.toISOString().substring(0, 10);
   
-  console.log(`<time datetime="${yyyymmdd}">${month} ${dueDateValue}, ${dueDateYear}</time>`);
-
-  // Increase the month index to print log message for the next month
-  monthIndex++;
-}
+console.log(`<time datetime="${yyyymmdd}">${months[dueMonthFromDueDate]} ${dueDateWithPadding}, ${dueDateYear}</time>`);
 
 // SOLUTION 2 - TO PRINT TWO DIGIT MONTH, DATE USING String.padStart() METHOD
-let dueDateWithPadding = dueDateValue.toString().padStart(2, 0);
-let monthIndexForSolution2 = 1 // month index
-for (let month of months) {
-  let monthIndexWithPadding = monthIndexForSolution2.toString().padStart(2, 0);
-  console.log(`<time datetime="${dueDateYear}-${monthIndexWithPadding}-${dueDateWithPadding}">${month} ${dueDateWithPadding}, ${dueDateYear}</time>`);
-
-  // Increase the month index to print log message for the next month
-  monthIndexForSolution2++;
-}
+console.log(`<time datetime="${dueDateYear}-${dueMonthWithPadding}-${dueDateWithPadding}">${months[dueMonthFromDueDate]} ${dueDateWithPadding}, ${dueDateYear}</time>`);
